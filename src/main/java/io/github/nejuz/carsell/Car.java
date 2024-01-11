@@ -1,14 +1,24 @@
 package io.github.nejuz.carsell;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Car {
-    @Id
-    public int id;
+    @Id ObjectId databaseId;
     public String brand;
+    public String generation;
     public String model;
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
     public int mileage;
     public int year;
     public String fuel;
@@ -20,12 +30,12 @@ public class Car {
     public String image;
     public String engineSize;
 
-    public int getId() {
-        return id;
+    public ObjectId getId() {
+        return ObjectId.get();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(ObjectId objectId) {
+        this.databaseId = objectId;
     }
 
     public String getBrand() {
@@ -36,12 +46,12 @@ public class Car {
         this.brand = brand;
     }
 
-    public String getModel() {
-        return model;
+    public String getGeneration() {
+        return generation;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setGeneration(String generation) {
+        this.generation = generation;
     }
 
     public int getMileage() {
@@ -97,7 +107,7 @@ public class Car {
     }
 
     public void setTitle(String title) {
-        Title = title;
+        Title = getBrand() + getGeneration();
     }
 
     public int getPrice() {
@@ -127,9 +137,9 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "id=" + id +
+                "id=" + databaseId +
                 ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
+                ", generation='" + generation + '\'' +
                 ", mileage=" + mileage +
                 ", year=" + year +
                 ", fuel='" + fuel + '\'' +
